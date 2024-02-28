@@ -1,7 +1,7 @@
 // CountryList.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Card, Col, Container, Row, Form } from 'react-bootstrap';
 
 function CountryList() {
   const [countries, setCountries] = useState([]);
@@ -23,16 +23,22 @@ function CountryList() {
 
   return (
     <Container>
-      <input
+      <Form.Control
         type="text"
         placeholder="Rechercher un pays"
         onChange={e => setSearchTerm(e.target.value)}
+        className="mb-3"
       />
       <Row xs={1} md={2} lg={3} className="g-4">
         {filteredCountries.map(country => (
           <Col key={country.name.common}>
             <Card>
-              <Card.Img variant="top" src={country.flags.png} alt="Drapeau" />
+              <Card.Img
+                variant="top"
+                src={country.flags.png}
+                alt="Drapeau"
+                style={{ height: '200px', objectFit: 'cover' }} // ObjectFit pour occuper tout l'espace du contenant
+              />
               <Card.Body>
                 <Card.Title>{country.translations.fra.common}</Card.Title>
                 <Card.Text>Capitale: {country.capital}</Card.Text>
